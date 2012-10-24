@@ -1,0 +1,22 @@
+{
+  "name": "No Limit Hold'em Tournament",
+  "description": "Example tournament for testing and development",
+  "bots": {
+     "Me":"./bot.js"
+    ,"CallBot #2":"./examples/bots/callBot.js"
+    ,"CallBot #3":"./examples/bots/callBot.js"
+    ,"RandBot #1":"./examples/bots/randBot.js"
+    ,"RandBot #2":"./examples/bots/randBot.js"
+    ,"RandBot #3":"./examples/bots/randBot.js"
+  },
+  "betting": {
+     "strategy": "noLimit",
+     "amounts": [10,20]
+  },
+  "chips": 1000,
+  "maxRounds": 10000,
+  "limitations": {
+    "sizeLimit": 16384,
+    "brainSize": 4096
+  }
+}

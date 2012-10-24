@@ -1,0 +1,22 @@
+{
+  "name": "MachinePoker",
+  "version": "0.1.0",
+  "description": "The basic runner for Machine Poker",
+  "keywords": ["competition", "poker"],
+  "repository": "git://github.com/mdp/MachinePoker.git",
+  "author": "Mark Percival <mark@markpercival.us> (http://markpercival.us)",
+  "scripts": {
+     "test": "rm -rf lib && coffee --compile -o lib/ src/ && mocha --no-colors --compilers coffee:coffee-script test/*_test.coffee"
+    ,"prepublish": "rm -rf lib && coffee --compile -o lib/ src/"
+    ,"postinstall": "node ./postinstall.js"
+    ,"start": "node lib/runner.js"
+  },
+  "dependencies": {
+     "binions" : ">=0.2.3"
+    ,"pitboss" : ">=0.1.1"
+    ,"async" : ">=0.1.22"
+    ,"request" : ">=2.11.4"
+  },
+  "engines": { "node": "0.8.x" },
+  "license": "MIT"
+}
