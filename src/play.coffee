@@ -14,27 +14,30 @@ exports.start = (config) ->
   betting = binions.betting[config.betting.strategy](config.betting.amounts...)
   maxRounds = config.maxRounds || 100
 
-  for observer of config.observers
-    observers.push require(observer)
+  for observer in (config.observers || [])
+    observers.push require("#{process.cwd()}/#{observer}")
 
   for name, location of config.bots
     bots.push Bot.create location, {name: name}
+
+  obsNotifier = (type, msg) ->
+    for observer in observers
+      if observer[type]
+        observer[type](msg)
 
   j = 0
   run = ->
     game = new Game(players, betting)
     game.run()
     game.on 'roundComplete', ->
-      #console.log game.status()
+      obsNotifier 'roundComplete', game.status(true)
     game.on 'complete', (status) ->
-      console.log "Round #{j}"
+      obsNotifier 'complete', game.status(true)
       j++
       numPlayer = (players.filter (p) -> p.chips > 0).length
       if j == maxRounds or numPlayer < 2
-        console.log players.map (p) -> "Name: #{p.name} - $#{p.chips}"
         process.exit()
       else
-        console.log players.map (p) -> "Name: #{p.name} - $#{p.chips}"
         players = players.concat(players.shift())
         run()
 
