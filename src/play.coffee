@@ -45,6 +45,6 @@ exports.start = (config) ->
   async.until (-> bots.filter((bot) -> !bot.loaded).length == 0),
     ((cb) -> setTimeout(cb,200)),
     ->
-      for bot, i in bots
-        players.push new Player(bot, chips, i)
+      for bot in bots
+        players.push new Player(bot, chips, bot.name)
       run()
