@@ -25,9 +25,9 @@ exports.start = (config) ->
       if observer[type]
         observer[type](msg)
 
-  j = 0
+  j = 1
   run = ->
-    game = new Game(players, betting)
+    game = new Game(players, betting, j)
     game.run()
     game.on 'roundComplete', ->
       obsNotifier 'roundComplete', game.status(true)
@@ -35,7 +35,7 @@ exports.start = (config) ->
       obsNotifier 'complete', game.status(true)
       j++
       numPlayer = (players.filter (p) -> p.chips > 0).length
-      if j == maxRounds or numPlayer < 2
+      if j > maxRounds or numPlayer < 2
         process.exit()
       else
         players = players.concat(players.shift())
