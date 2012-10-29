@@ -6,12 +6,13 @@ Poker](https://s3.amazonaws.com/img.mdp.im/MachinePokerLogo.png)
 
 The rules of Machine Poker are simple:
 
-- You'll need to build a poker play in less than 16k of javascript
-- The game will be No Limit Texas Holdem
-- Everyone will start the game with $1000 in chips
-- The game will be played until only one player is left, or 10,000 hands
-- The player with the most chips wins
-- Ties will be broken with sudden death gameplay
+- You're bot must be written in Javascript and less than 16k in size
+- The game will be "No Limit Texas Holdem"
+- Everyone starts with $1000 in chips
+- The small and big blinds will be 10 and 20 respectively
+- Games will be played until only one player is left, or 10,000 hands
+- After 10,000 hands the player with the most chips wins(Tie's will be broken by sudden death)
+- Programs are stateless, with the exception of a 4k brain
 
 ## Getting started
 
