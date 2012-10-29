@@ -3,11 +3,11 @@
   "description": "Example tournament for testing and development",
   "bots": {
      "Me":"./bot.js"
+    ,"CallBot #1":"./examples/bots/callBot.js"
     ,"CallBot #2":"./examples/bots/callBot.js"
-    ,"CallBot #3":"./examples/bots/callBot.js"
     ,"RandBot #1":"./examples/bots/randBot.js"
     ,"RandBot #2":"./examples/bots/randBot.js"
-    ,"RandBot #3":"./examples/bots/randBot.js"
+    ,"FoldBot #1":"./examples/bots/foldBot.js"
   },
   "betting": {
      "strategy": "noLimit",
