@@ -32,7 +32,7 @@ The rules of Machine Poker are simple:
 
 ### Build your bot
 
-Check [this guide on the wiki](wiki) to start building your own bot
+Check [this guide on the wiki](MachinePoker/wiki) to start building your own bot
 
 ### Cofiguring a new game
 
