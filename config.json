@@ -15,7 +15,7 @@
   },
   "observers":["lib/observers/logger"],
   "chips": 1000,
-  "maxRounds": 1,
+  "maxRounds": 1000,
   "limitations": {
     "sizeLimit": 16384,
     "brainSize": 4096

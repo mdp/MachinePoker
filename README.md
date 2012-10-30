@@ -9,10 +9,9 @@ The rules of Machine Poker are simple:
 - You're bot must be written in Javascript and less than 16k in size
 - The game will be "No Limit Texas Holdem"
 - Everyone starts with $1000 in chips
-- The small and big blinds will be 10 and 20 respectively
-- Games will be played until only one player is left, or 10,000 hands
-- After 10,000 hands the player with the most chips wins(Tie's will be broken by sudden death)
-- Programs are stateless, with the exception of a 4k brain
+- The small and big blinds will be 5 and 10 respectively
+- Games will be played until only one player is left, or 1,000 hands
+- After 1,000 hands the player with the most chips wins(Tie's will be broken by sudden death)
 
 ## Getting started
 
@@ -31,10 +30,9 @@ The rules of Machine Poker are simple:
 
     npm start
 
-### Guide to building your bot
+### Build your bot
 
-Coming soon
-
+Check [this guide on the wiki](wiki) to start building your own bot
 
 ### Cofiguring a new game
 
@@ -53,6 +51,5 @@ some better opponents. You can just update the repo to keep up to date.
 ### Todo
 
 - Get this working under windows (mainly just install instructions)
-- Build a logger to keep track of the games played
-- Build a client to display the games played and actions taken
+- Build a file logger to keep track of the games played
 
