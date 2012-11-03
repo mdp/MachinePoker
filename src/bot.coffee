@@ -27,7 +27,7 @@ class Bot
        var bet = exports.play(game);
        result = {
          bet: bet,
-         brain: game.me.brain,
+         brain: game.self.brain,
          debug: debug
        }
        result // Return results to Pitboss
@@ -36,7 +36,7 @@ class Bot
     @loaded = true
 
   update: (game, callback) ->
-    game.me.brain = @brain
+    game.self.brain = @brain
     @player.run {game: game}, (err, result) =>
       if err
         callback(err)

@@ -1,6 +1,6 @@
 {
   "name": "MachinePoker",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "The basic runner for Machine Poker",
   "keywords": ["competition", "poker"],
   "repository": "git://github.com/mdp/MachinePoker.git",
@@ -12,7 +12,7 @@
     ,"start": "node lib/runner.js"
   },
   "dependencies": {
-     "binions" : ">=0.5.0"
+     "binions" : ">=0.6.0"
     ,"pitboss" : ">=0.1.1"
     ,"async" : ">=0.1.22"
     ,"request" : ">=2.11.4"
