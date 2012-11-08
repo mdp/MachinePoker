@@ -2,7 +2,7 @@
   "name": "No Limit Hold'em Tournament",
   "description": "Example tournament for testing and development",
   "bots": {
-     "Me":"https://raw.github.com/gist/de7c2d4f6206c4f8eb30/bot.js"
+     "Me":"../pokerbot/bot.js"
     ,"CallBot #1":"./examples/bots/callBot.js"
     ,"CallBot #2":"./examples/bots/callBot.js"
     ,"RandBot #1":"./examples/bots/randBot.js"

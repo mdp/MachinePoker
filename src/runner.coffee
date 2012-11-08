@@ -1,11 +1,11 @@
 fs = require('fs')
 play = require('./play')
+argv = require('optimist').argv
 
-if(process.argv.length > 2)
-  configFile = process.argv[process.argv.length - 1]
-else
-  configFile = 'config.json'
-
+configFile = 'config.json'
 config = JSON.parse(fs.readFileSync(configFile))
+
+if argv.maxRounds
+  config.maxRounds = parseInt(argv.maxRounds, 10)
 
 play.start(config)
