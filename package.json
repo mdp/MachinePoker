@@ -12,7 +12,7 @@
     ,"start": "node lib/runner.js"
   },
   "dependencies": {
-     "binions" : ">=0.6.0"
+     "binions" : ">=0.6.1"
     ,"pitboss" : ">=0.1.1"
     ,"async" : ">=0.1.22"
     ,"request" : ">=2.11.4"
