@@ -14,6 +14,7 @@
      "amounts": [10,20]
   },
   "observers":["lib/observers/logger"],
+  "narrator":"lib/observers/narrator",
   "chips": 1000,
   "maxRounds": 1000,
   "limitations": {
