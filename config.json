@@ -13,8 +13,10 @@
      "strategy": "noLimit",
      "amounts": [10,20]
   },
-  "observers":["lib/observers/logger"],
-  "narrator":"lib/observers/narrator",
+  "observers": [
+      "lib/observers/logger"
+    , "lib/observers/narrator"
+  ],
   "chips": 1000,
   "maxRounds": 1000,
   "limitations": {

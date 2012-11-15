@@ -17,29 +17,26 @@ exports.start = (config) ->
 
   for observer in (config.observers || [])
     observers.push require("#{process.cwd()}/#{observer}")
-    
-  if config.narrator
-      narrator = require("#{process.cwd()}/#{config.narrator}")
 
   for name, location of config.bots
     bots.push Bot.create location, {name: name}
 
-  obsNotifier = (type, msg) ->
+  obsNotifier = (type) ->
+    args = Array.prototype.slice.call(arguments, 1)
     for observer in observers
       if observer[type]
-        observer[type](msg)
+        observer[type].apply(this, args)
 
   j = 1
   run = ->
     game = new Game(players, betting, j)
     game.on 'roundStart', ->
-        narrator?.roundStart? game.status(Game.STATUS.PRIVILEGED)
+      obsNotifier 'roundStart', game.status(Game.STATUS.PRIVILEGED)
     game.on 'stateChange', (state) ->
-        narrator?.stateChange? state, game.status(Game.STATUS.PRIVILEGED)
+      obsNotifier 'stateChange', game.status(Game.STATUS.PRIVILEGED)
     game.on 'roundComplete', ->
       obsNotifier 'roundComplete', game.status(Game.STATUS.PRIVILEGED)
     game.on 'complete', (status) ->
-      narrator?.roundComplete? game.status(Game.STATUS.PRIVILEGED)
       obsNotifier 'complete', game.status(Game.STATUS.PRIVILEGED)
       j++
       numPlayer = (players.filter (p) -> p.chips > 0).length
@@ -58,6 +55,6 @@ exports.start = (config) ->
       for bot in bots
         player = new Player(bot, chips, bot.name)
         players.push player
-        player.on 'betAction', (emittedPlayer, action, amount, err) ->
-            narrator?.playerBet?(emittedPlayer, action, amount, err)
+        player.on 'betAction', (p, action, amount, err) ->
+          obsNotifier 'betAction', this, action, amount, err
       run()
