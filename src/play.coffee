@@ -5,6 +5,8 @@ binions = require 'binions'
 {Game} = binions
 Bot = require './bot'
 
+Array::shuffle = -> @sort -> 0.5 - Math.random()
+
 exports.start = (config) ->
 
   observers = []
@@ -19,6 +21,8 @@ exports.start = (config) ->
 
   for name, location of config.bots
     bots.push Bot.create location, {name: name}
+
+  bots.shuffle()
 
   obsNotifier = (type, msg) ->
     for observer in observers
