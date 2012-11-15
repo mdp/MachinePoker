@@ -70,18 +70,18 @@ class Bot
     @player = new Pitboss(code, @opts)
 
   update: (game, callback) ->
-    if (@opts.debug?)
+    if (@opts.debug)
       startTime = Date.now()
     game.self.brain = @brain
     @player.run {game: game}, (err, result) =>
-      if (@opts.debug?)
+      if (@opts.debug)
         console.log("Execution of \"" + @name + "\" took " + (Date.now() - startTime) + " ms.")
       if err
         callback(err)
       else
         if @opts['debug']
           for debug in result['debug']
-            console.log util.inspect(debug, false, 6)
+            console.log debug
         @saveBrain(result['brain'])
         callback?(null, result['bet'])
 
@@ -96,7 +96,7 @@ class Bot
 exports.create = (id, opts, callback) ->
   bot = new Bot(opts)
   bot.loadedCallback = callback
-  console.log "Creating bot for - #{id}"
+  console.log "Creating bot for - #{id}" if (bot.opts.debug)
   retrieveBot id, (err, code) ->
     bot.setup(code)
   bot

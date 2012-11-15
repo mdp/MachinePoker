@@ -98,5 +98,5 @@ exports.complete = (status) ->
         cardString += card + " "
     handName = ""
     if player.handName? then handName = "(" + player.handName + ")"
-    narratorLogState player.name + " had " + cardString + " " + handName
+    narratorLogState player.name + " ($" + player.chips + ") had " + cardString + " " + handName
   narratorLogState "================================="
