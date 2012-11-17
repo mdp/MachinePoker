@@ -10,7 +10,6 @@ exports.start = (config) ->
   observers = []
   players = []
   bots= []
-  narrator = null
   chips = config.chips
   betting = binions.betting[config.betting.strategy](config.betting.amounts...)
   maxRounds = config.maxRounds || 100
