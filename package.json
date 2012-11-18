@@ -9,7 +9,7 @@
      "test": "rm -rf lib && coffee --compile -o lib/ src/ && mocha --no-colors --compilers coffee:coffee-script test/*_test.coffee"
     ,"prepublish": "rm -rf lib && coffee --compile -o lib/ src/"
     ,"postinstall": "node ./postinstall.js"
-    ,"start": "node lib/runner.js"
+    ,"start": "node runner.js"
   },
   "dependencies": {
      "binions" : ">=0.6.2"
