@@ -14,6 +14,7 @@
   "dependencies": {
      "binions" : ">=0.6.2"
     ,"pitboss" : ">=0.1.1"
+    ,"hoyle" : ">=0.2.0"
     ,"async" : ">=0.1.22"
     ,"request" : ">=2.11.4"
     ,"optimist" : ">=0.3.5"
