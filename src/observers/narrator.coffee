@@ -36,7 +36,6 @@ actionString = (action, bet) ->
     when 'allIn' then return 'went ALL IN with $' + bet
     when 'call' then return 'called $' + bet
     when 'check' then return 'checked'
-  return action
 
 exports.roundStart = (status) ->
   narratorLog " "
@@ -45,7 +44,7 @@ exports.roundStart = (status) ->
   for player in status.players
     narratorLogState "  " + playerInfoString(player, null)
 
-exports.playerBet = (player, action, bet, err) ->
+exports.betAction = (player, action, bet, err) ->
   if err
     narratorLogAction player.name + ' failed to bet: ' + err
   else

@@ -59,6 +59,6 @@ exports.start = (config) ->
       for bot in bots
         player = new Player(bot, chips, bot.name)
         players.push player
-        player.on 'betAction', (p, action, amount, err) ->
+        player.on 'betAction', (action, amount, err) ->
           obsNotifier 'betAction', this, action, amount, err
       run()
