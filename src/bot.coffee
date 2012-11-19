@@ -1,18 +1,53 @@
 fs = require 'fs'
 request = require 'request'
 util = require 'util'
+vm = require 'vm'
 {Pitboss} = require 'pitboss'
 
 class Bot
-
+  
   constructor: (@opts) ->
     @opts ||= {}
     @name = @opts['name'] || "Unnamed"
     @opts['brainSize'] ||= 4096
     @brain = {}
     @loaded = false
+    
+  getOptions: (code, callback) ->
+    myCode = """
+     var module = {};
+     var exports = module.exports = {};
+     #{code};
+     var result = {};
+      
+     var checkAndAssign = function (func) {
+       if (func !== undefined && typeof func == 'function') { 
+          return func();
+       }
+       return null;
+     }
+      
+     result.name = checkAndAssign(exports.name);
+     result.debug = checkAndAssign(exports.debug);
+      
+     result
+    """
+    nameFetcher = new Pitboss(myCode)
+    nameFetcher.run {}, (err, result) =>
+      console.log(err) if (err) 
+      if (result?.name?)
+        @name = result.name || @name
+      if (result?.debug?)
+        @debug = result.debug || @debug
+      callback()
+      
+  setupFinished: =>
+    @loaded = true
+    @loadedCallback?(this)
 
   setup: (code) ->
+    @getOptions(code, @setupFinished)
+    
     code = """
        // Debug setup
        var debug = [];
@@ -33,7 +68,6 @@ class Bot
        result // Return results to Pitboss
     """
     @player = new Pitboss(code, @opts)
-    @loaded = true
 
   update: (game, callback) ->
     if (@opts.debug?)
@@ -61,6 +95,7 @@ class Bot
 
 exports.create = (id, opts, callback) ->
   bot = new Bot(opts)
+  bot.loadedCallback = callback
   console.log "Creating bot for - #{id}"
   retrieveBot id, (err, code) ->
     bot.setup(code)
