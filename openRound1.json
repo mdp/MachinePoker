@@ -2,7 +2,7 @@
   "name": "No Limit Hold'em Tournament",
   "description": "Example tournament for testing and development",
   "bots": {
-    "Hardly Knower - @farktronix": "https://raw.github.com/gist/d2d69b3178379458d2b9/HardlyKnower.coffee"
+    "Hardly Knower - @farktronix": "https://raw.github.com/gist/d2d69b3178379458d2b9/HardlyKnower.js"
     ,"Losing Statelessly - @rpj":"https://raw.github.com/gist/affa85924b3b9ba115dd/rpj-losing_statelessly.js"
     ,"Rucky Bot - @chenosaurus":"https://raw.github.com/gist/7ea74e5aca4da2265382/bot.js"
     ,"Jacks Or Better - @kylar42":"https://raw.github.com/gist/ee24fb0ebcf00fbc9f23/jacksorbetterbot.js"
@@ -13,8 +13,8 @@
   },
   "observers": [
       "lib/observers/logger"
-    , "lib/observers/narrator"
   ],
+  "debug": false,
   "chips": 1000,
   "maxRounds": 1000,
   "limitations": {
