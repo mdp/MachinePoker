@@ -20,11 +20,21 @@ exports.start = (config) ->
   for observer in (config.observers || [])
     observers.push require("#{process.cwd()}/#{observer}")
 
+  botsToLoad = 0
+  botsToLoad++ for x of config.bots
   for name, location of config.bots
-    bots.push Bot.create location, {name: name, debug: config.debug, timeout: config.limitations.timeout}
+    newBot = Bot.create location, {name: name, debug: config.debug, timeout: config.limitations.timeout}, (bot) =>
+      player = new Player(bot, chips, bot.name)
+      players.push player
+      player.on 'betAction', (action, amount, err) ->
+        obsNotifier 'betAction', this, action, amount, err
+      botsToLoad--
+      if (botsToLoad == 0)
+        run()
+    bots.push newBot
 
   bots.shuffle()
-
+  
   obsNotifier = (type) ->
     args = Array.prototype.slice.call(arguments, 1)
     for observer in observers
@@ -51,14 +61,3 @@ exports.start = (config) ->
         run()
 
     game.run()
-
-  # Ugly
-  async.until (-> bots.filter((bot) -> !bot.loaded).length == 0),
-    ((cb) -> setTimeout(cb,200)),
-    ->
-      for bot in bots
-        player = new Player(bot, chips, bot.name)
-        players.push player
-        player.on 'betAction', (action, amount, err) ->
-          obsNotifier 'betAction', this, action, amount, err
-      run()
