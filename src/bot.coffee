@@ -32,7 +32,7 @@ class Bot
        }
        result // Return results to Pitboss
     """
-    @player = new Pitboss(code)
+    @player = new Pitboss(code, @opts)
     @loaded = true
 
   update: (game, callback) ->

@@ -22,6 +22,7 @@
   "maxRounds": 1000,
   "limitations": {
     "sizeLimit": 16384,
-    "brainSize": 4096
+    "brainSize": 4096,
+    "timeout": 1000
   }
 }

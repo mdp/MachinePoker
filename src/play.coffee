@@ -21,7 +21,7 @@ exports.start = (config) ->
     observers.push require("#{process.cwd()}/#{observer}")
 
   for name, location of config.bots
-    bots.push Bot.create location, {name: name, debug: config.debug}
+    bots.push Bot.create location, {name: name, debug: config.debug, timeout: config.limitations.timeout}
 
   bots.shuffle()
 
