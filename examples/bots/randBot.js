@@ -1,3 +1,7 @@
+exports.name = function() {
+    return "RandBot";
+};
+
 exports.play = function(game) {
   if(game.state !== "complete") {
     var heads = Math.random() > 0.5;

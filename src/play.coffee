@@ -20,10 +20,24 @@ exports.start = (config) ->
   for observer in (config.observers || [])
     observers.push require("#{process.cwd()}/#{observer}")
 
+  allBots = config.bots
   botsToLoad = 0
-  botsToLoad++ for x of config.bots
-  for name, location of config.bots
+  botsToLoad++ for x of allBots
+  botNames = []
+  
+  for name, location of allBots
     newBot = Bot.create location, {name: name, debug: config.debug, timeout: config.limitations.timeout}, (bot) =>
+      
+      # Unique the bot names
+      curName = bot.name
+      botNum = 1
+      while curName in botNames
+        curName = bot.name + " #" + botNum
+        botNum++
+      botNames.push curName
+      bot.name = curName
+      console.log("Loaded bot " + bot.name)
+      
       player = new Player(bot, chips, bot.name)
       players.push player
       player.on 'betAction', (action, amount, err) ->
@@ -32,7 +46,7 @@ exports.start = (config) ->
       if (botsToLoad == 0)
         run()
     bots.push newBot
-
+  
   bots.shuffle()
   
   obsNotifier = (type) ->
