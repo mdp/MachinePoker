@@ -36,8 +36,12 @@ class Bot
     @loaded = true
 
   update: (game, callback) ->
+    if (@opts.debug?)
+      startTime = Date.now()
     game.self.brain = @brain
     @player.run {game: game}, (err, result) =>
+      if (@opts.debug?)
+        console.log("Execution of \"" + @name + "\" took " + (Date.now() - startTime) + " ms.")
       if err
         callback(err)
       else
