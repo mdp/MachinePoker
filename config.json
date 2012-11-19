@@ -17,6 +17,7 @@
       "lib/observers/logger"
     , "lib/observers/narrator"
   ],
+  "debug": true,
   "chips": 1000,
   "maxRounds": 1000,
   "limitations": {

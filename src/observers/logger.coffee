@@ -1,5 +1,4 @@
-round = 0
+{inspect} = require('util')
 exports.complete = (status) ->
-  console.log "Round ##{round} complete"
-  console.log status.players.map (p) -> "#{p.name} - $#{p.chips}"
-  round++
+  if status.state == 'complete'
+    process.stdout.write "\n#{inspect(status, false, 6)}\n"

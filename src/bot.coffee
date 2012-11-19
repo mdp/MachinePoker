@@ -41,8 +41,9 @@ class Bot
       if err
         callback(err)
       else
-        for debug in result['debug']
-          console.log util.inspect(debug, false, 6)
+        if @opts['debug']
+          for debug in result['debug']
+            console.log util.inspect(debug, false, 6)
         @saveBrain(result['brain'])
         callback?(null, result['bet'])
 
