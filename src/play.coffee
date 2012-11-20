@@ -19,7 +19,7 @@ exports.start = (config) ->
 
   for observer in (config.observers || [])
     obsLocation = "#{process.cwd()}/#{observer}"
-    if fs.existsSync(obsLocation)
+    if fs.existsSync(obsLocation + ".js")
       observers.push require(obsLocation)
 
   for name, location of config.bots
