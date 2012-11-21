@@ -26,19 +26,19 @@ exports.start = (config) ->
   botNames = []
 
   for name, location of allBots
-    newBot = Bot.create location, {name: name, debug: config.debug, timeout: config.limitations.timeout}, (bot) =>
-
+    newBot = Bot.create location, {name: name, debug: config.debug, timeout: config.limitations.timeout}
+    newBot.once 'loaded', ->
       # Unique the bot names
-      curName = bot.name
+      curName = @name
       botNum = 2
       while curName in botNames
-        curName = bot.name + " #" + botNum
+        curName = @name + " #" + botNum
         botNum++
       botNames.push curName
-      bot.name = curName
-      console.log("Loaded bot " + bot.name)
+      @name = curName
+      console.log("Loaded bot " + @name)
 
-      player = new Player(bot, chips, bot.name)
+      player = new Player(this, chips, @name)
       players.push player
       player.on 'betAction', (action, amount, err) ->
         obsNotifier 'betAction', this, action, amount, err

@@ -2,9 +2,10 @@ fs = require 'fs'
 request = require 'request'
 util = require 'util'
 vm = require 'vm'
+{EventEmitter} = require('events')
 {Pitboss} = require 'pitboss'
 
-class Bot
+class Bot extends EventEmitter
 
   constructor: (@opts) ->
     @opts ||= {}
@@ -42,7 +43,7 @@ class Bot
 
   setupFinished: (err) =>
     @loaded = true
-    @loadedCallback?(this)
+    @emit 'loaded'
 
   setup: (code) ->
     @getOptions(code, @setupFinished)
@@ -92,9 +93,8 @@ class Bot
     else
       @brain = brainObj
 
-exports.create = (id, opts, callback) ->
+exports.create = (id, opts) ->
   bot = new Bot(opts)
-  bot.loadedCallback = callback
   console.log "Creating bot for - #{id}"
   retrieveBot id, (err, code) ->
     bot.setup(code)
