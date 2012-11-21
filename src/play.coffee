@@ -24,20 +24,20 @@ exports.start = (config) ->
   botsToLoad = 0
   botsToLoad++ for x of allBots
   botNames = []
-  
+
   for name, location of allBots
     newBot = Bot.create location, {name: name, debug: config.debug, timeout: config.limitations.timeout}, (bot) =>
-      
+
       # Unique the bot names
       curName = bot.name
-      botNum = 1
+      botNum = 2
       while curName in botNames
         curName = bot.name + " #" + botNum
         botNum++
       botNames.push curName
       bot.name = curName
       console.log("Loaded bot " + bot.name)
-      
+
       player = new Player(bot, chips, bot.name)
       players.push player
       player.on 'betAction', (action, amount, err) ->
@@ -46,9 +46,9 @@ exports.start = (config) ->
       if (botsToLoad == 0)
         run()
     bots.push newBot
-  
+
   bots.shuffle()
-  
+
   obsNotifier = (type) ->
     args = Array.prototype.slice.call(arguments, 1)
     for observer in observers

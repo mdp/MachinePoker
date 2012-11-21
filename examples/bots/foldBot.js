@@ -1,9 +1,7 @@
-exports.name = function() {
-    return "FoldBot";
-};
+exports.name = 'Foldbot';
 
 exports.play = function(game) {
-  if(game.state !== "complete") {
+  if (game.state !== "complete") {
     return 0;
   }
 };
