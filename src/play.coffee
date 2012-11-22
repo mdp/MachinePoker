@@ -18,7 +18,9 @@ exports.start = (config) ->
   maxRounds = config.maxRounds || 100
 
   for observer in (config.observers || [])
-    observers.push require("#{process.cwd()}/#{observer}")
+    obsLocation = "#{process.cwd()}/#{observer}"
+    if fs.existsSync(obsLocation + ".js")
+      observers.push require(obsLocation)
 
   allBots = config.bots
   botsToLoad = 0
@@ -69,6 +71,11 @@ exports.start = (config) ->
       j++
       numPlayer = (players.filter (p) -> p.chips > 0).length
       if j > maxRounds or numPlayer < 2
+        winner = players[0]
+        for player in players
+          if player.chips > winner.chips
+            winner = player
+        console.error("winner is " + winner.name + " with $" + winner.chips)
         process.exit()
       else
         players = players.concat(players.shift())
