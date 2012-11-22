@@ -11,13 +11,15 @@ Poker](https://s3.amazonaws.com/img.mdp.im/MachinePokerLogo.png)
 
 ### Installation
 
+#### Via NPM
+
+    npm install MachinePoker
+
+#### Local
+
     git clone git://github.com/mdp/MachinePoker.git
     cd MachinePoker
     npm install
-
-### Running a Game
-
-    npm start
 
 ### Build your bot
 
@@ -25,10 +27,29 @@ Check [this guide on the wiki](MachinePoker/wiki) to start building your own bot
 
 ### Cofiguring a new game
 
-Games and players are configured in json - ['config.json'](config.json)
+New matches are built using the Machine Poker API
 
-Your first bot exists in ['bot.js'](bot.js). You'll need to teach it to
-play poker if you want it to stand a chance of winning.
+    var MachinePoker = require('MachinePoker');
+    var narrator = MachinePokers.observers.narrator;
+    var narrator = MachinePokers.observers.fileLogger('results.json');
+
+    var table = MachinePoker.create({
+      maxRounds: 10
+    });
+
+    table.addPlayer('./examples/bots/callBot.js');
+    table.addPlayer('./examples/bots/callBot.js');
+    table.addPlayer('./examples/bots/randBot.js');
+
+    // Add some observers
+    table.addObserver(narrator);
+    table.addObserver(fileLogger);
+
+    table.on('ready', function() {
+      console.log('ready');
+      return table.start();
+    });
+
 
 ### Updating the repo
 
