@@ -1,3 +1,5 @@
+[![Build Status](https://secure.travis-ci.org/mdp/MachinePoker.png)](http://travis-ci.org/mdp/MachinePoker)
+
 ![Machine
 Poker](https://s3.amazonaws.com/img.mdp.im/MachinePokerLogo.png)
 # Machine Poker
