@@ -52,6 +52,8 @@ class MachinePoker extends EventEmitter
 
   start: ->
     currentRound = 1
+    @players.sort ->
+      Math.random() > 0.5 # Mix up the players before a tournament
     run = =>
       game = new Game(@players, @betting, currentRound)
       game.on 'roundStart', =>
