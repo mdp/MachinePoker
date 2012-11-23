@@ -10,6 +10,9 @@
     ,"prepublish": "rm -rf lib && coffee --compile -o lib/ src/"
     ,"start": "node runner.js"
   },
+  "devDependencies": {
+     "mocha" : ">=0.0.0"
+  },
   "dependencies": {
      "binions" : ">=0.6.4"
     ,"pitboss" : ">=0.1.1"

@@ -5,7 +5,7 @@ vm = require 'vm'
 {EventEmitter} = require('events')
 {Pitboss} = require 'pitboss'
 
-class Bot extends EventEmitter
+exports.Bot = class Bot extends EventEmitter
 
   constructor: (@opts) ->
     @opts ||= {}
