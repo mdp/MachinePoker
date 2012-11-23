@@ -13,7 +13,7 @@ Poker](https://s3.amazonaws.com/img.mdp.im/MachinePokerLogo.png)
 
 #### Via NPM
 
-    npm install MachinePoker
+    npm install machine-poker
 
 #### Local
 
@@ -29,7 +29,7 @@ Check [this guide on the wiki](MachinePoker/wiki) to start building your own bot
 
 New matches are built using the Machine Poker API
 
-    var MachinePoker = require('MachinePoker');
+    var MachinePoker = require('machine-poker');
     var narrator = MachinePokers.observers.narrator;
     var narrator = MachinePokers.observers.fileLogger('results.json');
 
