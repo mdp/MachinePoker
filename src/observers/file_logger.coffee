@@ -1,6 +1,4 @@
 fs = require('fs')
-{Game} = require 'binions'
-
 
 module.exports = (filename) ->
   buffers = []

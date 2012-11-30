@@ -1,6 +1,6 @@
 {
   "name": "machine-poker",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "The library for Machine Poker Competitions",
   "keywords": ["competition", "poker"],
   "repository": "git://github.com/mdp/MachinePoker.git",
