@@ -65,9 +65,22 @@ class MachinePoker extends EventEmitter
         currentRound++
         numPlayer = (@players.filter (p) -> p.chips > 0).length
         if currentRound > @maxRounds or numPlayer < 2
-          process.exit()
+          @obsNotifier 'tournamentComplete', @players
+          @exit()
         else
           @players = @players.concat(@players.shift())
           run()
       game.run()
     run()
+
+  exit: ->
+    waitingOn = 0
+    for obs in @observers
+      if obs['onObserverComplete']
+        waitingOn++
+        obs.onObserverComplete ->
+          waitingOn--
+          if waitingOn <= 0
+            process.exit()
+    if waitingOn <= 0
+      process.exit()

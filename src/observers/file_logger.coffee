@@ -1,25 +1,51 @@
-{inspect} = require('util')
 fs = require('fs')
+{Game} = require 'binions'
 
 
 module.exports = (filename) ->
   buffers = []
   ready = false
+  finished = false
+  finishedCallback = false
+  gameCount = 0
 
   stream = fs.createWriteStream("#{process.cwd()}/#{filename}");
-  console.log stream
   stream.once 'open', ->
     console.log "READY"
     ready = true
+    write("[\n")
 
-  write = (data) ->
+  stream.once 'close', ->
+    observerFinished()
+
+  write = (data, end) ->
     if ready
       for buffer in buffers
         stream.write(buffer)
-      stream.write data
+      if end
+        stream.end(data)
+      else
+        stream.write data
     else
       buffers.push data
 
+  observerFinished = ->
+    finished = true
+    finishedCallback?()
+
   complete: (game) ->
-    if game.state == 'complete'
-      write "#{inspect(game, false, 6)}\n\n"
+    if gameCount > 0
+      write ",\n#{JSON.stringify(game)}"
+    else
+      write "#{JSON.stringify(game)}"
+    gameCount++
+
+  tournamentComplete: (players) ->
+    write "]", true
+
+  onObserverComplete: (callback) ->
+    if finished
+      process.nextTick(callback)
+    else
+      finishedCallback = callback
+
