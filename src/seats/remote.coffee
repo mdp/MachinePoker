@@ -22,6 +22,7 @@ exports.Seat = class RemoteSeat extends Seat
       @info = response.info
       @name = @info.name || "Unnamed - #{url}"
       callback(null)
+      @emit 'ready'
 
   update: (game, callback) ->
     result = 0
@@ -39,6 +40,6 @@ exports.create = (url, opts, callback) ->
   bot = new RemoteSeat(url, opts)
   console.log "Creating bot for - #{url}" if (bot.debug)
   bot.setup url, (err) ->
-    callback(err, bot)
+    callback?(err, bot)
   bot
 

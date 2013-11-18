@@ -73,7 +73,7 @@ class MachinePoker extends EventEmitter
         obs.onObserverComplete ->
           waitingOn--
           if waitingOn <= 0
-            callback()
+            callback?()
     if waitingOn <= 0
       @emit 'tournamentClosed'
       callback?()

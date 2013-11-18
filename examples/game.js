@@ -1,32 +1,32 @@
-var MachinePoker = require('../lib/index');
-var LocalSeat = MachinePoker.seats.JsLocal
-var RemoteSeat = MachinePoker.seats.Remote
-var async = require('async');
-var narrator = MachinePoker.observers.narrator;
-var fileLogger = MachinePoker.observers.fileLogger('./examples/results.json');
+var MachinePoker = require('../lib/index')
+    , async = require('async')
+    , LocalSeat = MachinePoker.seats.JsLocal
+    , RemoteSeat = MachinePoker.seats.Remote
+    , CallBot = require('./bots/callBot')
+    , RandBot = require('./bots/randBot')
+    , FoldBot = require('./bots/foldBot')
+    , narrator = MachinePoker.observers.narrator
+    , fileLogger = MachinePoker.observers.fileLogger('./examples/results.json');
 
 var table = MachinePoker.create({
-  maxRounds: 10
+  maxRounds: 1
 });
 
 // Source be found at: https://github.com/mdp/RandBot
 var remotePlayerUrl = "http://randbot.herokuapp.com/randBot";
 
-async.map([
-  './examples/bots/callBot'
-  , './examples/bots/callBot'
-  , './examples/bots/randBot'
-  , './examples/bots/randBot'
-  , './examples/bots/foldBot'
-], LocalSeat.create, function (err, results) {
-  RemoteSeat.create(remotePlayerUrl, function (err, bot) {
-    results.push(bot)
-    if (!err) {
-      table.addPlayers(results);
-      table.on('tournamentClosed', function(){process.exit()});
-      table.start();
-    } else { throw err }
-  });
+var remotePlayer = RemoteSeat.create(remotePlayerUrl);
+remotePlayer.on('ready', function () {
+  var players = [
+    remotePlayer
+    , LocalSeat.create(CallBot)
+    , LocalSeat.create(FoldBot)
+    , LocalSeat.create(RandBot)
+    , LocalSeat.create(RandBot)
+  ];
+  table.addPlayers(players);
+  table.on('tournamentClosed', function () { process.exit() } );
+  table.start();
 });
 
 // Add some observers

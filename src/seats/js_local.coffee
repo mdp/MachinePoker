@@ -22,7 +22,7 @@ exports.Seat = class JsLocal extends Seat
 
   setupFinished: (err) =>
     @loaded = true
-    @emit 'loaded'
+    @emit 'ready'
 
   update: (game, callback) ->
     if (@debug)
@@ -37,12 +37,18 @@ exports.create = (id, opts, callback) ->
     callback = arguments[arguments.length - 1]
     opts = {}
   bot = new JsLocal(opts)
-  console.log "Creating bot for - #{id}" if (bot.debug)
-  retrieveBot id, (err, mod) ->
-    if err
-      throw err
-    bot.setup(new mod())
-    callback?(null, bot)
+  if typeof id == 'function'
+    # Do this syncronously for ease of coding
+    bot.setup(new id())
+  else
+    # Retreive the bot from a remote source
+    # Will need to watch for callback completion
+    console.log "Creating bot for - #{id}" if (bot.debug)
+    retrieveBot id, (err, mod) ->
+      if err
+        throw err
+      bot.setup(new mod())
+      callback?(null, bot)
   bot
 
 retrieveBot = (id, callback) ->
