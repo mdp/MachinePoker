@@ -1,5 +1,5 @@
 assert = require 'assert'
-Bot = require '../src/remote_bot'
+Bot = require '../src/seats/remote'
 
 fakeGame = require("./fixtures/game_data.json")
 url = "http://randbot.herokuapp.com/randBot"
