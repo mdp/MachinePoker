@@ -1,4 +1,3 @@
-node_modules
-
-# Ignore your own custom bot
-/bot.js
+/node_modules
+/examples/results.json
+/lib
