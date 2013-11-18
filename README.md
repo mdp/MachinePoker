@@ -17,6 +17,14 @@ or bots that play remotely via HTTP and conform to the MachinePoker API
 - NodeJS >= 0.10.x
 - A basic understanding of javascript
 
+#### Dependencies
+
+- [Hoyle](https://github.com/mdp/hoyle) - Poker hand library
+- [Binions](https://github.com/mdp/binions) - Poker table library
+- Request
+- Async
+- Optimist
+
 ### Installation
 
 #### Via NPM
