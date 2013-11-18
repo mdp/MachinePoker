@@ -6,7 +6,7 @@ var narrator = MachinePoker.observers.narrator;
 var fileLogger = MachinePoker.observers.fileLogger('./examples/results.json');
 
 var table = MachinePoker.create({
-  maxRounds: 2
+  maxRounds: 10
 });
 
 // Source be found at: https://github.com/mdp/RandBot
