@@ -1,5 +1,5 @@
-exports.name = function() {
-  return "RandBot";
+exports.info = {
+  name: "RandBot"
 };
 
 exports.play = function(game) {

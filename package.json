@@ -1,26 +1,24 @@
 {
   "name": "machine-poker",
-  "version": "0.3.2",
+  "version": "0.4.0",
   "description": "The library for Machine Poker Competitions",
   "keywords": ["competition", "poker"],
   "repository": "git://github.com/mdp/MachinePoker.git",
-  "author": "Mark Percival <mark@markpercival.us> (http://markpercival.us)",
+  "author": "Mark Percival <m@mdp.im> (http://markpercival.us)",
   "scripts": {
      "test": "rm -rf lib && coffee --compile -o lib/ src/ && mocha --no-colors --compilers coffee:coffee-script test/*_test.coffee"
     ,"prepublish": "rm -rf lib && coffee --compile -o lib/ src/"
-    ,"start": "node runner.js"
   },
   "devDependencies": {
      "mocha" : ">=0.0.0"
+    ,"coffee-script" : ">=1.4.0"
   },
   "dependencies": {
      "binions" : ">=0.6.4"
-    ,"pitboss" : ">=0.1.1"
     ,"hoyle" : ">=0.2.0"
     ,"async" : ">=0.1.22"
     ,"request" : ">=2.11.4"
     ,"optimist" : ">=0.3.5"
-    ,"coffee-script" : ">=1.4.0"
   },
   "main": "./lib/index.js",
   "engines": { "node": "0.8.x" },

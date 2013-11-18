@@ -1,4 +1,6 @@
-exports.name = "CallBot";
+exports.info = {
+  name: "CallBot"
+};
 
 exports.play = function(game) {
   if (game.state !== "complete") {

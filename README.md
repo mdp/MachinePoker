@@ -4,11 +4,17 @@
 Poker](https://s3.amazonaws.com/img.mdp.im/MachinePokerLogo.png)
 # Machine Poker
 
+Machine Poker is a libray which allows you go build poker bots
+and have them compete against each other in tournaments.
+
+Currently this supports bots written in Javascript running locally,
+or bots that play remotely via HTTP and conform to the MachinePoker API
+
 ## Getting started
 
 ### Requirements
 
-- NodeJS >= 0.8.x
+- NodeJS >= 0.10.x
 - A basic understanding of javascript
 
 ### Installation
@@ -33,25 +39,28 @@ New matches are built using the Machine Poker API
 
     var MachinePoker = require('machine-poker');
     var narrator = MachinePokers.observers.narrator;
-    var narrator = MachinePokers.observers.fileLogger('results.json');
+    var fileLogger = MachinePokers.observers.fileLogger('results.json');
 
     var table = MachinePoker.create({
-      maxRounds: 10
+      maxRounds: 100
     });
 
-    table.addPlayer('./examples/bots/callBot.js');
-    table.addPlayer('./examples/bots/callBot.js');
-    table.addPlayer('./examples/bots/randBot.js');
+    async.map([
+      './examples/bots/callBot'
+      , './examples/bots/callBot'
+      , './examples/bots/randBot'
+      , './examples/bots/randBot'
+      , './examples/bots/foldBot'
+    ], Bot.create, function (err, results) {
+      if (!err) {
+        table.addPlayers(results);
+        table.start();
+      } else { throw err }
+    });
 
     // Add some observers
     table.addObserver(narrator);
     table.addObserver(fileLogger);
-
-    table.on('ready', function() {
-      console.log('ready');
-      return table.start();
-    });
-
 
 ### Updating the repo
 
@@ -62,6 +71,5 @@ some better opponents. You can just update the repo to keep up to date.
 
 ### Todo
 
-- Get this working under windows (mainly just install instructions)
-- Build a file logger to keep track of the games played
+- Build remote Bot handlers so that we can sandbox players in Docker container
 

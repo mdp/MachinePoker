@@ -9,7 +9,6 @@ module.exports = (filename) ->
 
   stream = fs.createWriteStream("#{process.cwd()}/#{filename}");
   stream.once 'open', ->
-    console.log "READY"
     ready = true
     write("[\n")
 
@@ -43,7 +42,7 @@ module.exports = (filename) ->
 
   onObserverComplete: (callback) ->
     if finished
-      process.nextTick(callback)
+      setImmediate(callback)
     else
       finishedCallback = callback
 
