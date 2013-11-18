@@ -1,5 +1,4 @@
 var MachinePoker = require('../lib/index')
-    , async = require('async')
     , LocalSeat = MachinePoker.seats.JsLocal
     , RemoteSeat = MachinePoker.seats.Remote
     , CallBot = require('./bots/callBot')
@@ -9,7 +8,7 @@ var MachinePoker = require('../lib/index')
     , fileLogger = MachinePoker.observers.fileLogger('./examples/results.json');
 
 var table = MachinePoker.create({
-  maxRounds: 1
+  maxRounds: 100
 });
 
 // Source be found at: https://github.com/mdp/RandBot

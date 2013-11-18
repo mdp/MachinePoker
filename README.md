@@ -38,24 +38,33 @@ Check [this guide on the wiki](MachinePoker/wiki) to start building your own bot
 New matches are built using the Machine Poker API
 
     var MachinePoker = require('machine-poker');
-    var narrator = MachinePokers.observers.narrator;
-    var fileLogger = MachinePokers.observers.fileLogger('results.json');
+        , LocalSeat = MachinePoker.seats.JsLocal
+        , RemoteSeat = MachinePoker.seats.Remote
+        , CallBot = require('./examples/bots/callBot')
+        , RandBot = require('./examples/bots/randBot')
+        , FoldBot = require('./examples/bots/foldBot')
+        , narrator = MachinePoker.observers.narrator
+        , fileLogger = MachinePoker.observers.fileLogger('./examples/results.json');
 
     var table = MachinePoker.create({
       maxRounds: 100
     });
 
-    async.map([
-      './examples/bots/callBot'
-      , './examples/bots/callBot'
-      , './examples/bots/randBot'
-      , './examples/bots/randBot'
-      , './examples/bots/foldBot'
-    ], Bot.create, function (err, results) {
-      if (!err) {
-        table.addPlayers(results);
-        table.start();
-      } else { throw err }
+    // Source be found at: https://github.com/mdp/RandBot
+    var remotePlayerUrl = "http://randbot.herokuapp.com/randBot";
+
+    var remotePlayer = RemoteSeat.create(remotePlayerUrl);
+    remotePlayer.on('ready', function () {
+      var players = [
+        remotePlayer
+        , LocalSeat.create(CallBot)
+        , LocalSeat.create(FoldBot)
+        , LocalSeat.create(RandBot)
+        , LocalSeat.create(RandBot)
+      ];
+      table.addPlayers(players);
+      table.on('tournamentClosed', function () { process.exit() } );
+      table.start();
     });
 
     // Add some observers
@@ -71,5 +80,5 @@ some better opponents. You can just update the repo to keep up to date.
 
 ### Todo
 
-- Build remote Bot handlers so that we can sandbox players in Docker container
+- Fix wiki
 
