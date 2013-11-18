@@ -2,10 +2,9 @@ fs = require 'fs'
 request = require 'request'
 util = require 'util'
 crypto = require 'crypto'
-{Bot} = require('./bot')
-tmpDir = __dirname + "/../../tmp"
+{Seat} = require('../seat')
 
-exports.Bot = class RemoteBot extends Bot
+exports.Seat = class RemoteSeat extends Seat
 
   constructor: (@url, @opts) ->
     @opts ||= {}
@@ -37,7 +36,7 @@ exports.create = (url, opts, callback) ->
   if arguments.length == 2
     callback = arguments[arguments.length - 1]
     opts = {}
-  bot = new RemoteBot(url, opts)
+  bot = new RemoteSeat(url, opts)
   console.log "Creating bot for - #{url}" if (bot.debug)
   bot.setup url, (err) ->
     callback(err, bot)

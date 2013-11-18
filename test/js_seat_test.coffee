@@ -1,5 +1,5 @@
 assert = require 'assert'
-Bot = require '../src/local_bot'
+Bot = require '../src/js_bot'
 
 fakeGame = require("./fixtures/game_data.json")
 

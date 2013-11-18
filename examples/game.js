@@ -1,6 +1,6 @@
 var MachinePoker = require('../lib/index');
-var LocalBot = require('../lib/local_bot');
-var RemoteBot = require('../lib/remote_bot');
+var LocalSeat = MachinePoker.seats.JsLocal
+var RemoteSeat = MachinePoker.seats.Remote
 var async = require('async');
 var narrator = MachinePoker.observers.narrator;
 var fileLogger = MachinePoker.observers.fileLogger('./examples/results.json');
@@ -18,11 +18,12 @@ async.map([
   , './examples/bots/randBot'
   , './examples/bots/randBot'
   , './examples/bots/foldBot'
-], LocalBot.create, function (err, results) {
-  RemoteBot.create(remotePlayerUrl, function (err, bot) {
+], LocalSeat.create, function (err, results) {
+  RemoteSeat.create(remotePlayerUrl, function (err, bot) {
     results.push(bot)
     if (!err) {
       table.addPlayers(results);
+      table.on('tournamentClosed', function(){process.exit()});
       table.start();
     } else { throw err }
   });

@@ -2,12 +2,12 @@ fs = require 'fs'
 request = require 'request'
 util = require 'util'
 crypto = require 'crypto'
-{Bot} = require('./bot')
+{Seat} = require('../seat')
 tmpDir = __dirname + "/../../tmp"
 
 # This should only be used to run bots that you trust
 
-exports.Bot = class LocalBot extends Bot
+exports.Seat = class JsLocal extends Seat
 
   constructor: (@opts) ->
     @opts ||= {}
@@ -36,12 +36,12 @@ exports.create = (id, opts, callback) ->
   if arguments.length == 2
     callback = arguments[arguments.length - 1]
     opts = {}
-  bot = new LocalBot(opts)
+  bot = new JsLocal(opts)
   console.log "Creating bot for - #{id}" if (bot.debug)
   retrieveBot id, (err, mod) ->
     if err
       throw err
-    bot.setup(mod)
+    bot.setup(new mod())
     callback?(null, bot)
   bot
 

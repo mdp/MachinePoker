@@ -1,7 +1,7 @@
 {EventEmitter} = require('events')
 
-# Basic bot class
-exports.Bot = class Bot extends EventEmitter
+# Basic Seat class
+exports.Seat = class Seat extends EventEmitter
 
   constructor: (@opts) ->
     @opts ||= {}
@@ -16,7 +16,7 @@ exports.create = (id, opts, callback) ->
   if arguments.length == 2
     callback = arguments[arguments.length - 1]
     opts = {}
-  bot = new Bot(opts)
-  console.log "Creating bot for - #{id}" if (bot.debug)
+  bot = new Seat(opts)
+  console.log "Creating seat for - #{id}" if (bot.debug)
   callback?(null, bot)
 
