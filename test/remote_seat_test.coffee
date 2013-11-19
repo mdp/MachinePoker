@@ -5,6 +5,7 @@ fakeGame = require("./fixtures/game_data.json")
 url = "http://randbot.herokuapp.com/randBot"
 
 describe "Basic remote run bot", ->
+  @timeout 10000
 
   it "should set itself up", (done) ->
     Bot.create url, (err, bot) ->
