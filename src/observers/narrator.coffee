@@ -25,8 +25,8 @@ playerInfoString = (player, communityCards) ->
       c = c.concat(communityCards)
       c = c.concat(playerCards)
       handName = Hand.make(c).name
-      if handName? and handName != 'High card' then playerCards += " (" + handName + ")"
-  return player.name + " ($" + player.chips + ") " + playerCards
+      if handName? and handName != 'High card' then playerCards += " (#{handName})"
+  return player.name + "#{player.name} ($#{player.chips}) #{playerCards}"
 
 actionString = (action, bet) ->
   switch action
@@ -46,35 +46,36 @@ exports.roundStart = (status) ->
 
 exports.betAction = (player, action, bet, err) ->
   if err
-    narratorLogAction player.name + ' failed to bet: ' + err
+    narratorLogAction "  #{player.name} failed to bet: #{err}"
   else
-    narratorLogAction player.name + ' ' + actionString(action, bet)
+    narratorLogAction "  #{player.name} #{actionString(action, bet)}"
 
 exports.stateChange = (status) ->
   stateName = status.state
   narratorLog " "
-  narratorLogState "-- " + stateName
+  narratorLogState "-- #{stateName}"
   if stateName == 'pre-flop'
     for player in status.players
-      narratorLogState "  " + playerInfoString(player, null)
+      narratorLogState "  #{playerInfoString(player, null)}"
 
     for player in status.players
-      if player.blind > 0 then narratorLogAction player.name + " paid a blind of $" + player.blind
+      if player.blind > 0 then narratorLogAction "  #{player.name}  paid a blind of $#{player.blind}"
 
   else
     cards = ""
     for card in status.community
       cards = cards + card + " "
-    narratorLogState " Cards are: " + cards
+    narratorLogState " Cards are: #{cards}"
 
     pot = 0
     for player in status.players
       if player.wagered? then pot += player.wagered
-    narratorLogState " Pot is: " + pot
+    narratorLogState " Pot is: #{pot}"
 
     communityCards = (new Card c for c in status.community)
     for player in status.players
-      if (player.state == 'active' || player.state == 'allIn') then narratorLogState "  " + playerInfoString(player, communityCards)
+      if (player.state == 'active' || player.state == 'allIn') then narratorLogState "  #{playerInfoString(player, communityCards)}"
+    narratorLogAction " Actions: "
 
 exports.complete = (status) ->
   narratorLog " "
@@ -82,7 +83,7 @@ exports.complete = (status) ->
   if status.winners.length > 1
     narratorLogState "Winners are:"
     for winner in status.winners
-      narratorLogState " " + status.players[winner.position].name + " with " + status.players[winner.position].handName + ". Amount won: $" + winner.amount
+      narratorLogState "#{status.players[winner.position].name} with #{status.players[winner.position].handName}. Amount won: $#{ + winner.amount}"
 
   else
     winningPlayer = status.players[status.winners[0].position]

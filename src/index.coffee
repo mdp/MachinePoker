@@ -29,15 +29,20 @@ class MachinePoker extends EventEmitter
 
   addObserver: (obs) ->
     @observers.push(obs)
-    for event in ['roundStart', 'stateChange', 'complete', 'tournamentComplete']
+    for event in ['roundStart', 'stateChange', 'complete', 'tournamentComplete', 'betAction']
       @on(event, obs[event]) if obs[event]
 
   addPlayers: (bots) ->
     names = []
     for bot in bots
       name = botNameCollision(names, bot.name)
-      @players.push(new Player(bot, @chips, name))
       names.push(name)
+      @addPlayer(new Player(bot, @chips, name))
+
+  addPlayer: (player) ->
+    player.on 'betAction', (action, amount, err) =>
+      @emit 'betAction', player, action, amount, err
+    @players.push(player)
 
   run: ->
     game = new Game(@players, @betting, @currentRound)
@@ -79,11 +84,12 @@ class MachinePoker extends EventEmitter
       callback?()
 
 botNameCollision = (existing, name, idx) ->
+  altName = name
   idx ||= 1
   if idx > 1
-    name = "#{name} ##{idx}"
-  if existing.indexOf(name) >= 0
+    altName = "#{name} ##{idx}"
+  if existing.indexOf(altName) >= 0
     return botNameCollision(existing, name, idx + 1)
-  return name
+  return altName
 
 
