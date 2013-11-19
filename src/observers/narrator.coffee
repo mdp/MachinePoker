@@ -26,7 +26,7 @@ playerInfoString = (player, communityCards) ->
       c = c.concat(playerCards)
       handName = Hand.make(c).name
       if handName? and handName != 'High card' then playerCards += " (#{handName})"
-  return player.name + "#{player.name} ($#{player.chips}) #{playerCards}"
+  return "#{player.name} ($#{player.chips}) #{playerCards}"
 
 actionString = (action, bet) ->
   switch action
@@ -88,8 +88,8 @@ exports.complete = (status) ->
   else
     winningPlayer = status.players[status.winners[0].position]
     handName = ""
-    if winningPlayer.handName? then handName = " with " + winningPlayer.handName
-    narratorLogState "Winner was " + winningPlayer.name + handName + ". Amount won: $" + status.winners[0].amount
+    if winningPlayer.handName? then handName = "with #{winningPlayer.handName}"
+    narratorLogState "Winner was #{winningPlayer.name} #{handName} Amount won: $#{status.winners[0].amount}"
 
   narratorLogState "Positions: "
   for player in status.players
@@ -98,6 +98,6 @@ exports.complete = (status) ->
       for card in player.cards
         cardString += card + " "
     handName = ""
-    if player.handName? then handName = "(" + player.handName + ")"
-    narratorLogState player.name + " ($" + player.chips + ") had " + cardString + " " + handName
+    if player.handName? then handName = "(#{player.handName})"
+    narratorLogState "#{player.name} ($#{player.chips}) had #{cardString} #{handName}"
   narratorLogState "================================="
