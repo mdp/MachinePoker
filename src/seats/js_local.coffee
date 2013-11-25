@@ -27,7 +27,7 @@ exports.Seat = class JsLocal extends Seat
   update: (game, callback) ->
     if (@debug)
       startTime = Date.now()
-    result = @player.play(game)
+    result = @player.update(game)
     if (@debug)
       console.log("Execution of \"" + @name + "\" took " + (Date.now() - startTime) + " ms.")
     setImmediate -> callback(null, result)
