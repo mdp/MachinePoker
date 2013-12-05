@@ -39,7 +39,7 @@ or bots that play remotely via HTTP and conform to the MachinePoker API
 
 ### Build your bot
 
-Check [this guide on the wiki](MachinePoker/wiki) to start building your own bot
+Check [this guide on the wiki](https://github.com/mdp/MachinePoker/wiki) to start building your own bot
 
 ### Cofiguring a new game
 
